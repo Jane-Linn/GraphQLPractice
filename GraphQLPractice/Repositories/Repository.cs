@@ -6,12 +6,17 @@ namespace GraphQLPractice.Repositories
     {
         public Task<List<Book>> GetBooks()
         {
-            return Task.FromResult(new List<Book>());
+            return Task.FromResult(new List<Book>() 
+            {
+                new Book(Guid.NewGuid(), $"bookName-1", new Author(Guid.NewGuid(), $"author-1")) , 
+                new Book(Guid.NewGuid(), $"bookName-1", new Author(Guid.NewGuid(), $"author-1"))
+            });
         }
 
-        public Task<List<Book>> GetBook(string bookName, string author)
+        public Task<List<Book>> GetBook(int count)
         {
-            return Task.FromResult(new List<Book>() { new Book(Guid.NewGuid(), bookName, new Author(Guid.NewGuid(), author)) });
+            return Task.FromResult(Enumerable.Range(1, 1 + count)
+                .Select(index => new Book(Guid.NewGuid(), $"bookName-{index}", new Author(Guid.NewGuid(), $"author-{index}"))).ToList());
         }
     }
 }
